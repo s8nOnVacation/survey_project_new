@@ -87,7 +87,7 @@ class NewViewEditForm extends React.Component {
             console.log("sdf", this.state.questionInput);
             let submitData = {};
             submitData.FORM_NAME = this.state.fmName;
-            submitData.FORM_ID = this.props.questionDetails.FORM_ID;
+            if(this.props.questionDetails && this.props.questionDetails.FORM_ID)submitData.FORM_ID = this.props.questionDetails.FORM_ID;
             submitData.QUS = {};
             let i;
             for (i = 0; i < this.state.questionInput.length; i++) {
@@ -146,6 +146,7 @@ class NewViewEditForm extends React.Component {
 
         return (
             <form className="formCreateContainer" onSubmit={this.handleSubmitClick}>
+                <br />
                 <FormName fmName={this.state.fmName} handleChange={this.formNamehandleChange} mode={this.props.mode ? this.props.mode : window.mode} />
                 <br />
                 {questionComp}

@@ -6,6 +6,7 @@
     align-items: center;
     margin-top: 40px;
     overflow-x: hidden;
+    margin-bottom: 2%;
   }
 
 .formsDiv{
@@ -15,7 +16,17 @@
 
 .formsHeading{
     color: hsl(0, 0%, 100%);
+    /* text-decoration: underline rgb(204, 16, 110) 4px;
+    text-underline-position: under; */
     margin-top: 30px;
+    border-bottom:5px solid rgb(204, 16, 110);
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2%;
+    margin-top: 10%;
+    text-align: center;
+    /* justify-content: center; */
 }
 
 .showForms{

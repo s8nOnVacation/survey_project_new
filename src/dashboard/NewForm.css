@@ -28,11 +28,16 @@ body{
 }
 
 .cardForm{
+    transform: scale(0.9);
     position:absolute;
     color: var(--clr-neutral-100);
     /* background-image: url(https://picsum.photos/200/300); */
-    background: rgba(0,0,0,0.5);
+    /* background: rgba(0,0,0,0.5); */
+    background: url("../Picture1.png");
     background-size: cover;
+    background-position: 50% 15%;
+    background-size: 70%;
+    background-repeat: no-repeat;
     padding: 10rem 0 0;
     max-width: 35ch;
     border-radius: 0.5rem;
@@ -43,7 +48,9 @@ body{
 
 .cardForm:hover,
 .cardForm:focus-within{
-    transform: scale(1.05);
+    transform: scale(1.0);
+    /* background-position: 50% 20%; */
+    
 }
 
 .cardForm-content{
