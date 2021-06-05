@@ -79,6 +79,8 @@
   border: 3px solid white;
   border-radius: 50px;
   cursor: pointer;
+  font-family: Helvetica;
+  background-color: unset;
   color: white;
 }
 

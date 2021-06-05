@@ -19,7 +19,7 @@ class Ques extends Component{
         <div >
           
         <div className="C">
-        <h2>Question{this.props.ind!=1?this.props.ind+1:2}</h2>
+        <h2>Question{this.props.ind!==1?this.props.ind+1:2}</h2>
 
          <input onChange={this.props.data1} type="text" placeholder="Questions" className="question"></input> <br></br>
          <div style={{display:"flex"}}>

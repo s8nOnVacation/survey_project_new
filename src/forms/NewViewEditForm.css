@@ -1,0 +1,32 @@
+.formCreateContainer{
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, 0);
+    /* border: 3px solid white; */
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    /* background-color: rgba(255,255,255,0.7); */
+}
+
+.actionBtn{
+    cursor: pointer;
+    background-color: hsl(142, 75%, 52%);
+    border: none;
+    border-radius: 50px;
+    font-size:medium;
+    color: white;
+    width: 40%;
+    padding: 1.25% 2%;
+    margin: 1.25% 2% 1.25% 2%;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    box-shadow: 0 6px #999;
+    text-align: center;
+    
+}
+
+.actionBtn:hover{
+    background-color: hsl(142, 69%, 39%);
+}
+
