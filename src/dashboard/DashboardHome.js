@@ -89,7 +89,7 @@ export default function DashboardHome(props) {
         displayAllForms = dataH.map((ele, index) =>
             <div id={ele.FORM_ID} className="allBox">
                 <div className="formTitle">
-                    <h3>{ele.FORM_NAME}</h3>
+                    <h3 style={{marginLeft:"4%",marginRight:"4%"}}>{ele.FORM_NAME}</h3>
                 </div>
                 <div className="formCreated">
                     <li className="date">Created On: {ele.CREATED_ON}</li>
@@ -121,6 +121,7 @@ export default function DashboardHome(props) {
                 : ""}
             {modeState==="create" && window.location.href==window.homepage?
             <div className="footerBar">
+                <br />
                 <p className="p1"></p>
                 <p className="p2"></p>
                 <p className="p3"></p>

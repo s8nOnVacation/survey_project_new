@@ -59,6 +59,7 @@
   text-align: center;
   text-decoration: underline;
   text-underline-position: under;
+  word-wrap: break-word;
 }
 
 .formCreated{
@@ -144,11 +145,16 @@
   background-color: rgb(204, 16, 110);
 }
 
-/* .footerBar{
-  border: 2px solid blue;
-} */
+.footerBar{
+  /* border: 2px solid blue; */
+  background-color: rgba(0,0,0,0.7);
+  height: 10vh;
+  padding-bottom: 6%;
+
+}
 
 .p1{
+  margin-top: 0;
   border-top: 4px solid rgb(204, 16, 110);
   width: 50%;
   margin-left: auto;
