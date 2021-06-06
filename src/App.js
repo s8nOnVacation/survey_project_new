@@ -7,10 +7,15 @@ import { BrowserRouter, Switch, Route, Redirect, useHistory } from 'react-router
 import NewViewEditForm from "./forms/NewViewEditForm";
 
 function App() {
+  const headerClick =() =>{
+    if(!window.location.href.includes("form"))
+    window.location.reload();
+    else window.history.back();
+  }
   return (
     <BrowserRouter>
       <div className="App">
-        <div className="appHeader"><img src={logo} className="logoImage"></img></div>
+        <div className="appHeader"><img src={logo} className="logoImage" onClick={headerClick}></img></div>
         <div>
         <Switch>
           <Route path='/' exact component={DashboardHome} />

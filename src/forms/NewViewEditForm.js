@@ -2,18 +2,20 @@ import React from 'react';
 import axios from 'axios';
 // import { useState } from 'react';
 import FormName from './FormName';
+import ResponderDetails from './ResponderDetails';
 import NewQuestion from './NewQuestion';
 import "./NewViewEditForm.css";
+
 
 class NewViewEditForm extends React.Component {
 
     constructor(props) {
         super(props);
-        console.log("fawdad", props)
         this.state = {
             counter: [""],
             questionInput: [],
             fmName: this.props.questionDetails && this.props.questionDetails.FORM_NAME ? this.props.questionDetails.FORM_NAME : "",
+            responder: [],
             selectedOption: []
         }
 
@@ -24,11 +26,9 @@ class NewViewEditForm extends React.Component {
         if (this.props.questionDetails && this.props.questionDetails.QUE) {
             let arr = [];
             let i;
-
             for (i = 0; i < this.props.questionDetails.QUE.length; i++) {
                 this.state.questionInput[i] = [];
                 arr.push("");
-
                 let x;
                 for (x in this.props.questionDetails.QUE[i]) {
                     let y;
@@ -43,12 +43,21 @@ class NewViewEditForm extends React.Component {
             }
             this.state.counter = arr;
         }
-
-        console.log("fafsafsafa", this.state.questionInput)
     }
 
     formNamehandleChange = (e) => {
         this.setState({ fmName: e.target.value });
+    }
+
+    responderDetailsHandleChange = (e) => {
+        let arr = this.state.responder;
+        if (e.target.className === "nameInput")
+            arr[0] = e.target.value;
+        else if (e.target.className === "emailInput")
+            arr[1] = e.target.value;
+        else if (e.target.className === "numberInput")
+            arr[2] = e.target.value;
+        this.setState({ responder: arr });
     }
 
     handleChange = (e, index) => {
@@ -82,12 +91,38 @@ class NewViewEditForm extends React.Component {
     handleSubmitClick = (e) => {
         e.preventDefault();
         if (this.props.mode == "view") { window.location.reload(); }
+        else if (this.props.mode == "fill") {
+            let submitData = {};
+            if (this.props.questionDetails && this.props.questionDetails.FORM_ID) submitData.FORM_ID = this.props.questionDetails.FORM_ID;
+            submitData.NAME = this.state.responder[0];
+            submitData.EMAIL = this.state.responder[1];
+            submitData.MOBILE = this.state.responder[2];
+            submitData.RES = {};
+            let i;
+            console.log("fsf",this.props.questionDetails.QUE.length)
+            for (i = 0; i < this.props.questionDetails.QUE.length; i++) {
+                let x;
+                for (x in this.props.questionDetails.QUE[i]) {
+                    submitData.RES[x] = this.state.selectedOption[i];
+                    
+                }
+            }
+            console.log("SubmitData::::", submitData)
+            axios.post('http://survey3171.000webhostapp.com/api/saveForm.php', JSON.stringify(submitData))
+                .then((response) => {
+                    console.log("abcdef",response);
+                    // window.q1 = response.data.RESP_ID;
+                    window.location.reload();
+                }, (error) => {
+                    console.log(error);
+                })
+        }
         else {
-            console.log("fef", this.state.fmName)
-            console.log("sdf", this.state.questionInput);
+            // console.log("fef", this.state.fmName)
+            // console.log("sdf", this.state.questionInput);
             let submitData = {};
             submitData.FORM_NAME = this.state.fmName;
-            if(this.props.questionDetails && this.props.questionDetails.FORM_ID)submitData.FORM_ID = this.props.questionDetails.FORM_ID;
+            if (this.props.questionDetails && this.props.questionDetails.FORM_ID) submitData.FORM_ID = this.props.questionDetails.FORM_ID;
             submitData.QUS = {};
             let i;
             for (i = 0; i < this.state.questionInput.length; i++) {
@@ -102,9 +137,8 @@ class NewViewEditForm extends React.Component {
                     .then((response) => {
                         console.log(response);
                         window.q1 = response.data.FORM_ID;
-                        console.log("dwaaddadawadadaaddaddadawd:", submitData);
-                        if (this.props.questionDetails.FORM_ID && this.props.questionDetails.FORM_ID !== response.FORM_ID) 
-                        {
+                        // console.log("dwaaddadawadadaaddaddadawd:", submitData);
+                        if (this.props.questionDetails.FORM_ID && this.props.questionDetails.FORM_ID !== response.FORM_ID) {
                             let y = { FORM_ID: this.props.questionDetails.FORM_ID }
                             console.log(JSON.stringify(y));
                             axios.post('http://survey3171.000webhostapp.com/api/deleteForm.php', JSON.stringify(y))
@@ -140,23 +174,29 @@ class NewViewEditForm extends React.Component {
         let questionComp = this.state.counter.map((e, index) => {
             this.state.questionInput[index] = !this.state.questionInput[index] ? [] : this.state.questionInput[index];
 
-            // return this.props.questionDetails ? <NewQuestion questionDetails={this.props.questionDetails} mode={window.mode} handleChange={this.handleChange} questionInput={this.state.questionInput[index]} index={index} /> : 
-            return <NewQuestion mode={this.props.mode ? this.props.mode : window.mode} handleChange={this.handleChange} questionInput={this.state.questionInput[index]} index={index} />
+            return <NewQuestion mode={this.props.mode ? this.props.mode : window.mode} handleChange={this.handleChange} questionInput={this.state.questionInput[index]} index={index} selectedOption={this.state.selectedOption} />
         })
 
         return (
             <form className="formCreateContainer" onSubmit={this.handleSubmitClick}>
+                {window.scrollTo(0, 0)}
                 <br />
                 <FormName fmName={this.state.fmName} handleChange={this.formNamehandleChange} mode={this.props.mode ? this.props.mode : window.mode} />
+
+                {(this.props.mode ? this.props.mode : window.mode) == "fill" ?
+                    <ResponderDetails responder={this.state.responder} responderDetailsHandleChange={this.responderDetailsHandleChange} mode={this.props.mode ? this.props.mode : window.mode} /> : ""}
+
                 <br />
                 {questionComp}
                 {/* <br /> */}
-                {(this.props.mode ? this.props.mode : window.mode) == "view" ?
+                {this.props.mode && this.props.mode == "view" ?
                     <button className="actionBtn">Continue To Dashboard</button> :
-                    <div>
-                        <button type="submit" className="actionBtn" onClick={this.handleNewQuesClick}>Add New Question</button>
-                        <input type="submit" className="actionBtn" value="Submit Form"></input>
-                    </div>
+                    this.props.mode && this.props.mode == "fill" ?
+                        <button type="submit" className="actionBtn">Submit Responses</button> :
+                        <div>
+                            <button type="submit" className="actionBtn" onClick={this.handleNewQuesClick}>Add New Question</button>
+                            <input type="submit" className="actionBtn" value="Submit Form"></input>
+                        </div>
                 }
                 <br />
             </form>

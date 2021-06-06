@@ -13,7 +13,7 @@ function FormName(props) {
     //     setFmName(e.target.value);
     // }
 
-    if (props.fmName && props.mode == 'view') {
+    if (props.fmName && props.mode == 'view' || props.mode == 'fill') {
         return (
             <div className="fmNameBox">
                 <h1>{props.fmName}</h1>

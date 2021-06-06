@@ -62,9 +62,9 @@
 .choiceInput{
     background:rgb(238, 16, 127);
     border: none;
+    outline: none;
     border-radius: 50px;
     font-size: 16px;
-    /* letter-spacing: 1px; */
     color: white;
     width: 40%;
     padding: 1.25% 4%;
@@ -86,9 +86,22 @@
 }
 
 .choiceInputToggled{
-    background:rgb(26,255,0);
+    background:hsl(142, 75%, 52%);
+    border: none;
+    outline: none;
+    border-radius: 50px;
+    font-size: 16px;
+    color: white;
+    width: 40%;
+    padding: 1.25% 4%;
+    margin: 1.25% 2%;
+    text-align: center;
 }
 
-.cursorP{
+/* .cursorP{
     cursor: pointer;
+} */
+
+.choiceInput:hover{
+    background:rgb(77, 192, 64);
 }
