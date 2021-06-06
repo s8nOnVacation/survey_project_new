@@ -35,6 +35,7 @@
   flex-wrap: wrap;
   flex-direction: row;
   margin: 0 35px 10px 35px;
+  transform: scale(1);
   /* border: 2px solid whitesmoke; */
 }
 
@@ -54,13 +55,16 @@
 }
 
 @media(hover){
+  .showForms:hover{
+    transition: 250ms ease-in-out;
+  }
   .showForms:hover >.allBox:hover{
     transform: scale(1.1);
-    transition: 250ms ease; 
+    transition: 250ms ease-in-out; 
   }
 .showForms:hover >.allBox:not(.allBox:hover){
   transform: scale(0.85);
-  transition: 250ms ease; 
+  transition: 250ms ease-in-out; 
 }
 }
 
