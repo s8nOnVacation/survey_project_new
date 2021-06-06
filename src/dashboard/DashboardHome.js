@@ -5,6 +5,8 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 // import { useHistory } from 'react-router-dom';
 import NewViewEditForm from '../forms/NewViewEditForm';
+import ShowResponses from '../forms/ShowResponses';
+import ShowResRouter from '../forms/ShowResRouter';
 
 export default function DashboardHome(props) {
 
@@ -80,8 +82,14 @@ export default function DashboardHome(props) {
             );
     }
 
+    // useEffect(() => {
+    //     console.log("modest:",modeState) // This is be executed when `loading` state changes
+    // }, [modeState])
+
     function showResHandle(id) {
-        //Gaurang's Work
+        window.showFormID = id;
+        setModeState("showRes");
+        // console.log("modest:",modeState)
     }
 
     var displayAllForms;
@@ -111,6 +119,7 @@ export default function DashboardHome(props) {
                 {modeState === "edit" ? <NewViewEditForm mode={modeState} questionDetails={window.formResponse} /> : ""}
                 {modeState === "view" ? <NewViewEditForm mode={modeState} questionDetails={window.formResponse} /> : ""}
                 {modeState === "fill" ? <NewViewEditForm mode={modeState} questionDetails={window.formResponse} /> : ""}
+                {modeState === "showRes"? <ShowResRouter /> : ""}
             </div>
             {modeState === "create" ?
                 <div className="formsDiv">

@@ -104,7 +104,6 @@ class NewViewEditForm extends React.Component {
                 let x;
                 for (x in this.props.questionDetails.QUE[i]) {
                     submitData.RES[x] = this.state.selectedOption[i];
-                    
                 }
             }
             console.log("SubmitData::::", submitData)
