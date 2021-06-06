@@ -3,16 +3,6 @@ import { useState, useEffect } from "react";
 import "./NewQuestion.css"
 
 function FormName(props) {
-
-    // let [fmName, setFmName] = useState("");
-
-    // if (props.formName)
-    //     setFmName(props.formName);
-
-    // let handleChange = (e) => {
-    //     setFmName(e.target.value);
-    // }
-
     if (props.fmName && props.mode == 'view' || props.mode == 'fill') {
         return (
             <div className="fmNameBox">
@@ -20,7 +10,6 @@ function FormName(props) {
             </div>
         )
     }
-
     else {
         return (
             <div className="fmNameBox">
@@ -29,7 +18,6 @@ function FormName(props) {
             </div>
         )
     }
-
 }
 
 export default FormName;

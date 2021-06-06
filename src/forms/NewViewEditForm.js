@@ -45,6 +45,10 @@ class NewViewEditForm extends React.Component {
         }
     }
 
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
+
     formNamehandleChange = (e) => {
         this.setState({ fmName: e.target.value });
     }
@@ -99,7 +103,7 @@ class NewViewEditForm extends React.Component {
             submitData.MOBILE = this.state.responder[2];
             submitData.RES = {};
             let i;
-            console.log("fsf",this.props.questionDetails.QUE.length)
+            console.log("fsf", this.props.questionDetails.QUE.length)
             for (i = 0; i < this.props.questionDetails.QUE.length; i++) {
                 let x;
                 for (x in this.props.questionDetails.QUE[i]) {
@@ -109,7 +113,7 @@ class NewViewEditForm extends React.Component {
             console.log("SubmitData::::", submitData)
             axios.post('http://survey3171.000webhostapp.com/api/saveForm.php', JSON.stringify(submitData))
                 .then((response) => {
-                    console.log("abcdef",response);
+                    console.log("abcdef", response);
                     // window.q1 = response.data.RESP_ID;
                     window.location.reload();
                 }, (error) => {
