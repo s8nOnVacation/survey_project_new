@@ -53,6 +53,17 @@
   flex-direction: column;
 }
 
+@media(hover){
+  .showForms:hover >.allBox:hover{
+    transform: scale(1.1);
+    transition: 250ms ease; 
+  }
+.showForms:hover >.allBox:not(.allBox:hover){
+  transform: scale(0.85);
+  transition: 250ms ease; 
+}
+}
+
 .formTitle{
   /* border: 2px solid green; */
   width: 100%;
