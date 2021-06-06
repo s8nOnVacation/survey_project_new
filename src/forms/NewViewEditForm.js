@@ -172,13 +172,11 @@ class NewViewEditForm extends React.Component {
 
         let questionComp = this.state.counter.map((e, index) => {
             this.state.questionInput[index] = !this.state.questionInput[index] ? [] : this.state.questionInput[index];
-
             return <NewQuestion mode={this.props.mode ? this.props.mode : window.mode} handleChange={this.handleChange} questionInput={this.state.questionInput[index]} index={index} selectedOption={this.state.selectedOption} />
         })
 
         return (
             <form className="formCreateContainer" onSubmit={this.handleSubmitClick}>
-                {window.scrollTo(0, 0)}
                 <br />
                 <FormName fmName={this.state.fmName} handleChange={this.formNamehandleChange} mode={this.props.mode ? this.props.mode : window.mode} />
 

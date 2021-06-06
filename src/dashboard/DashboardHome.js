@@ -3,9 +3,7 @@ import NewForm from "./NewForm"
 import "./Dashboard.css"
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-// import { useHistory } from 'react-router-dom';
 import NewViewEditForm from '../forms/NewViewEditForm';
-import ShowResponses from '../forms/ShowResponses';
 import ShowResRouter from '../forms/ShowResRouter';
 
 export default function DashboardHome(props) {
