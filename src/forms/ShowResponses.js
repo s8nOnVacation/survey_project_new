@@ -1,27 +1,51 @@
 
 import React from 'react';
 import Chart from "react-google-charts";
+import axios from 'axios';
 
 class ShowResponses extends React.Component {
 
     constructor(props) {
         super(props) //since we are extending class Table so we have to use super in order to override Component class constructor
         this.state = { //state is by default an object
-            surveyresponse: [
-                { id: 1, Question: "Which IDE do you use for programming in React / Node JS?", Option1: "Eclipse IDE", Value1: 50, Option2: "Microsoft Visual Studio", Value2: 30, Option3: "IntelliJ", Value3: 20 },
-                { id: 2, Question: "Which IDE do you think is most flexible?", Option1: "Eclipse IDE", Value1: 30, Option2: "Microsoft Visual Studio", Value2: 40, Option3: "IntelliJ", Value3: 30 },
-                { id: 3, Question: "Which IDE do you think is more powerful?", Option1: "Eclipse IDE", Value1: 40, Option2: "Microsoft Visual Studio", Value2: 20, Option3: "IntelliJ", Value3: 40 },
-                { id: 4, Question: "Which IDE do you think is more useful?", Option1: "Eclipse IDE", Value1: 30, Option2: "Microsoft Visual Studio", Value2: 40, Option3: "IntelliJ", Value3: 30 },
-
-            ]
-
+            surveyresponse: []
         }
+        this.responseFetch=this.responseFetch.bind(this);
+
+        this.responseFetch(window.showFormID);
     }
 
+    responseFetch(id) {
+        console.log("fesfsf",id)
+        let z = { FORM_ID: id }
+        let objResp = {};
+        axios.post('http://survey3171.000webhostapp.com/api/showFormRespPer.php', JSON.stringify(z))
+            .then((response) => {
+                let question;
+                let quesid = 0;
+                for (question in response.data.FORM_DATA) {
+                    quesid = quesid+1;
+                    objResp.id=quesid;
+                    objResp.Question = question;
+                    let quesOptions;
+                    for (quesOptions in response.data.FORM_DATA[question]) {
+                        objResp[quesOptions] = response.data.FORM_DATA[question][quesOptions] 
+                        console.log("kkkkddjdsfsaf", objResp);
+                    }
+                }
+                let arr=[];
+                arr.push(objResp)
+                this.setState({surveyresponse:arr});
+                console.log("surveyRes", this.state.surveyresponse)
+            }, (error) => {
+                console.log(error);
+            }
+            );
+    }
 
     renderTableData() {
         return this.state.surveyresponse.map((survey, index) => {
-            const { id, Question, Option1, Value1, Option2, Value2, Option3, Value3 } = survey //destructuring
+            const { id, Question, OPTION1, VALUE1, OPTION2, VALUE2, OPTION3, VALUE3, OPTION4, VALUE4 } = survey //destructuring
             return (
                 <tr key={id}>
                     <Chart
@@ -31,12 +55,13 @@ class ShowResponses extends React.Component {
                         loader={<div>Loading Chart</div>}
                         data={[
                             ['Question', 'Response'],
-                            [Option1, Value1],
-                            [Option2, Value2],
-                            [Option3, Value3],
+                            [OPTION1, VALUE1],
+                            [OPTION2, VALUE2],
+                            [OPTION3, VALUE3],
+                            [OPTION4, VALUE4],
                         ]}
                         options={{
-                            title: Question,
+                            title: "Q"+id+": "+Question,
                         }}
                     //rootProps={{ 'data-testid': {id} }}
                     />
@@ -48,10 +73,10 @@ class ShowResponses extends React.Component {
     render() {
         return (
             <div className='respContainer'>
-                <center><h1 id='title' style={{backgroundColor:"white"}}>Survey Response Dashboard</h1></center>
+                <center><h1 id='title' style={{ backgroundColor: "white" }}>Survey Response Dashboard</h1></center>
                 <br></br>
                 <br></br>
-                <table id='surveyresponse' style={{margin:"auto", marginRight:"auto", justifyContent:"center", alignItems:"center"}}>
+                <table id='surveyresponse' style={{ margin: "auto", marginRight: "auto", justifyContent: "center", alignItems: "center" }}>
                     <tbody>
                         {this.renderTableData()}
                     </tbody>
