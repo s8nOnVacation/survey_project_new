@@ -19,8 +19,10 @@ class ShowResponses extends React.Component {
         console.log("fesfsf",id)
         let z = { FORM_ID: id }
         let objResp = {};
+        let arr=[];
         axios.post('http://survey3171.000webhostapp.com/api/showFormRespPer.php', JSON.stringify(z))
             .then((response) => {
+                console.log("resp:", response)
                 let question;
                 let quesid = 0;
                 for (question in response.data.FORM_DATA) {
@@ -30,11 +32,11 @@ class ShowResponses extends React.Component {
                     let quesOptions;
                     for (quesOptions in response.data.FORM_DATA[question]) {
                         objResp[quesOptions] = response.data.FORM_DATA[question][quesOptions] 
-                        console.log("kkkkddjdsfsaf", objResp);
+                        // console.log("kkkkddjdsfsaf", objResp);
                     }
+                    arr.push(objResp)
+                    objResp={};
                 }
-                let arr=[];
-                arr.push(objResp)
                 this.setState({surveyresponse:arr});
                 console.log("surveyRes", this.state.surveyresponse)
             }, (error) => {
